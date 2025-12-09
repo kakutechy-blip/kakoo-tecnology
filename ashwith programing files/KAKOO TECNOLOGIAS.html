@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KAKOO TECNOLOGIAS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d9d9d9; /* Light gray background */
+        }
+
+        h1 {
+            text-align: center;
+            text-decoration: underline;
+            margin-top: 30px;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Search bar styles moved from inline to CSS */
+        #searchBar {
+            width: 500px;
+            height: 35px;
+            font-size: 17px;
+        }
+
+        .vr-section {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 40px;
+            margin-left: 20px;
+        }
+
+        .vr-section img {
+            width: 400px; /* Increased width */
+            height: auto;
+        }
+
+        .vr-text {
+            margin-left: 30px;
+            width: 320px;
+        }
+
+        .vr-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>KAKOO TECNOLOGIAS</h1>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search...">
+    </div>
+
+    <div class="vr-section" id="vrItem">
+        
+        <a href="HYPERLINK.html">
+            <img src="file:///C:/Users/shikh/OneDrive/Pictures/Screenshots/Screenshot%202025-12-07%20182151.png" alt="KAKOO VISION VR Headset">
+        </a>
+
+        <div class="vr-text">
+            <div class="vr-title">KAKOO VISION — <span class="price">$1.13</span></div>
+
+            <p>
+                Kakoo Vision is an eco-friendly cardboard VR headset designed for affordable,
+                simple, and immersive virtual experiences. Lightweight and easy to use,
+                it makes VR accessible to everyone.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Search function
+        const searchBar = document.getElementById("searchBar");
+        const vrItem = document.getElementById("vrItem");
+
+        // Capture the title text for searching
+        const vrTitle = document.querySelector(".vr-title").innerText.toLowerCase();
+
+        searchBar.addEventListener("keyup", function() {
+            let value = searchBar.value.toLowerCase();
+
+            // Search by title text
+            if (vrTitle.includes(value)) {
+                vrItem.style.display = "flex";
+            } else if (value === "") {
+                vrItem.style.display = "flex";
+            } else {
+                vrItem.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>

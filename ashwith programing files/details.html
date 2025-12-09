@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VR Delivery Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: white;
+      padding: 30px 20px;
+      width: 350px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>VR Delivery Registration</h2>
+
+  <form id="regForm">
+
+    <label for="country">Country</label>
+    <input type="text" id="country" name="country" placeholder="Enter Country" required>
+
+    <label for="state">State</label>
+    <input type="text" id="state" name="state" placeholder="Enter State" required>
+
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" placeholder="Enter City" required>
+
+    <label for="house">House Number</label>
+    <input type="text" id="house" name="house" placeholder="Enter House Number" required>
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required pattern="\d{10}" title="Enter 10 digit phone number">
+
+    <button type="button" onclick="sendData()">Register</button>
+  </form>
+</div>
+
+<script>
+let userLat = "";
+let userLon = "";
+
+// Get user location
+navigator.geolocation.getCurrentPosition(
+  (pos) => {
+    userLat = pos.coords.latitude;
+    userLon = pos.coords.longitude;
+  },
+  () => {
+    alert("Location permission denied. Location won't be saved.");
+  }
+);
+
+function sendData() {
+    // Validate required fields
+    const country = document.getElementById("country").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const house = document.getElementById("house").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+
+    if (!country || !state || !city || !house || !phone) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    // Data object
+    const data = {
+        country: country,
+        state: state,
+        city: city,
+        house: house,
+        phone: phone,
+        lat: userLat,
+        lon: userLon
+    };
+
+    // Replace YOUR_WEB_APP_URL_HERE with your Google Script Web App URL
+    fetch("https://script.google.com/macros/s/AKfycbzSEv6-yqWECJqqyy-fDtAm_oXkqF9Wx7U9uGpEJXeJtrWpTgYHRRH2kW1YFlfZfmpi/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(() => alert("Registration successful!"))
+    .catch(() => alert("Error sending data. Check your Web App URL."));
+}
+</script>
+
+</body>
+</html>
